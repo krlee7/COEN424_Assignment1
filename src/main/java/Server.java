@@ -1,6 +1,8 @@
 // A Java program for a Server 
 import java.net.*;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Server
@@ -56,8 +58,39 @@ public class Server
         }
     }
 
+    /*//int RFW_ID, String benchType, String workMetric, int batchUnit, int batchStart, int batchSize
+    public static void read (String benchType){
+        if (benchType == "dvd_training"){
+            String dvd_training_path = Paths.get(System.getProperty("user.dir") + "\\src\\main\\java\\DVD-training.csv").toString();
+            File file = new File(dvd_training_path);
+
+            try {
+                Scanner inputStream = new Scanner(file);
+                inputStream.nextLine();     //Skips the first line of the document.
+                while(inputStream.hasNextLine()){
+                    String data = inputStream.nextLine();
+                    String[] values = data.split(",");
+                    System.out.println(values[0]);
+                    *//**Parse it into a JSON format. Then serialize it.*//*
+                }
+                inputStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }*/
+
+    public static void convertJSON(){
+        String currentDir = System.getProperty("user.dir");
+        String dvd_testing = currentDir + "\\src\\main\\java\\DVD-training.csv";
+        File dvdTestingInputCSV = new File (dvd_testing);
+        File dvdTestingInputJSON = new File(currentDir + "\\DVD-training.csv");
+
+    }
+
     public static void main(String args[])
     {
-        Server server = new Server(5000);
+        //Server server = new Server(5000);
+
     }
 } 
