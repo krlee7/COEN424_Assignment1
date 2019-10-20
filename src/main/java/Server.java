@@ -38,7 +38,44 @@ public class Server
                 try
                 {
                     line = in.readUTF();
-                    System.out.println(line);
+                    String[] array = line.split(",");
+                    if(array.length <= 6) {
+                        if (array[0] != null && array[0].matches("\\d+")) {
+                            System.out.println(array[0] + " is an integer");
+                        } else {
+                            System.out.println(array[0] + "Not integer");
+                        }
+                        if (array.length > 1 && array[1] != null && array[1].matches("(?i)dvd|ndbench")) {
+                            System.out.println(array[1] + " is a good benchmark type");
+                        } else {
+                            System.out.println("Not a proper benchmark type");
+                        }
+                        if (array.length > 2 && array[2] != null && array[2].matches("(?i)cpu|networkin|networkout|memory")) {
+                            System.out.println(array[2] + " is a good workload metric");
+                        } else {
+                            System.out.println("Not a proper workload metric");
+                        }
+                        if (array.length > 3 && array[3] != null && array[3].matches("\\d+")) {
+                            System.out.println(array[3] + " is an integer");
+                        } else {
+                            System.out.println("Not integer");
+                        }
+                        if (array.length > 4 && array[4] != null && array[4].matches("\\d+")) {
+                            System.out.println(array[4] + " is an integer");
+                        } else {
+                            System.out.println("Not integer");
+                        }
+                        if (array.length > 5 && array[5] != null && array[5].matches("\\d+")) {
+                            System.out.println(array[5] + " is an integer");
+                        } else {
+                            System.out.println("Not integer");
+                        }
+                    }
+                    else{
+                        System.out.println("Too many parameters were inputted");
+                    }
+                    System.out.println(Arrays.toString(array));
+
 
                 }
                 catch(IOException i)
@@ -90,7 +127,7 @@ public class Server
 
     public static void main(String args[])
     {
-        //Server server = new Server(5000);
+        Server server = new Server(5000);
 
     }
 } 
