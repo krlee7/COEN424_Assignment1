@@ -1,9 +1,16 @@
 // A Java program for a Server 
 import java.net.*;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
+
+import Profiles.csvData;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import static java.lang.Integer.valueOf;
 
 public class Server
 {
@@ -117,17 +124,75 @@ public class Server
         }
     }*/
 
+    /**Takes the CSV file and get the records in the CSV. Store them in an array of type "CSV File"*/
+    public static List<csvData> readCSVFile(String filePath){
+        BufferedReader fileReader = null;
+        CSVParser csvParser = null;
+
+        List<csvData> dataJSON = new ArrayList<csvData>();
+
+        try {
+            fileReader = new BufferedReader(new FileReader(filePath));
+            csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
+
+            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+
+            for (CSVRecord csvRecord : csvParser.getRecords()) {
+                csvData record = new csvData(Integer.parseInt(csvRecord.get("CPU")), Integer.parseInt(csvRecord.get("networkIn")), Integer.parseInt(csvRecord.get("networkOut")), Integer.parseInt(csvRecord.get("memory")));
+                dataJSON.add(record);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be found!");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error reading the CSV!");
+            e.printStackTrace();
+        }finally {
+            try {
+                fileReader.close();
+                csvParser.close();
+            } catch (IOException e) {
+                System.out.println("Closing fileRead or csvReader error.");
+                e.printStackTrace();
+            }
+        }
+
+        return dataJSON;
+    }
+
+    public static void csvToJSON(List<csvData> dataJSON, String filePath){
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File(filePath);
+
+        try {
+            mapper.writeValue(file, dataJSON);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static void convertJSON(){
         String currentDir = System.getProperty("user.dir");
-        String dvd_testing = currentDir + "\\src\\main\\java\\DVD-training.csv";
-        File dvdTestingInputCSV = new File (dvd_testing);
+        String csvData = currentDir + "\\src\\main\\java\\DVD-testing.csv";
+        File dvdTestingInputCSV = new File (csvData);
         File dvdTestingInputJSON = new File(currentDir + "\\DVD-training.csv");
 
     }
 
     public static void main(String args[])
     {
-        Server server = new Server(5000);
+        //Server server = new Server(5000);
+
+        String currentDir = System.getProperty("user.dir");
+        String csvData = currentDir + "\\src\\main\\java\\DVD-testing.csv";
+        String newFile = currentDir + "\\src\\newDoc.json";
+
+
+        csvToJSON(readCSVFile(csvData), newFile);
 
     }
 } 
