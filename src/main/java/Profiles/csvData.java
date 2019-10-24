@@ -2,20 +2,22 @@ package Profiles;
 
 public class csvData {
 
-        private double CPU;
+        private double cpu;
         private double networkIn;
         private double networkOut;
         private double memory;
 
-        public csvData (double CPU, double networkIn, double networkOut, double memory) {
-            this.CPU = CPU;
+        public csvData(){};
+
+        public csvData (double cpu, double networkIn, double networkOut, double memory) {
+            this.cpu = cpu;
             this.networkIn = networkIn;
             this.networkOut = networkOut;
             this.memory = memory;
         }
 
         public double getCPU() {
-            return CPU;
+            return cpu;
         }
 
         public double getNetworkIn() {

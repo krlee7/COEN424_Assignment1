@@ -80,14 +80,11 @@ public class ConvertToJson {
     }
 
     public static void main(String args[]) {
-        //Server server = new Server(5000);
 
         String currentDir = System.getProperty("user.dir");
         String csvData = currentDir + "\\src\\main\\java\\DVD-testing.csv";
-        String newFile = currentDir + "\\src\\newDoc.json";
-
+        String newFile = currentDir + "\\src\\DVD_testing.json";
 
         csvToJSON(readCSVFile(csvData), newFile);
-
     }
 }
