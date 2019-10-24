@@ -1,9 +1,8 @@
 // A Java program for a Server 
 import java.net.*;
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
+
 
 public class Server
 {
@@ -117,17 +116,11 @@ public class Server
         }
     }*/
 
-    public static void convertJSON(){
-        String currentDir = System.getProperty("user.dir");
-        String dvd_testing = currentDir + "\\src\\main\\java\\DVD-training.csv";
-        File dvdTestingInputCSV = new File (dvd_testing);
-        File dvdTestingInputJSON = new File(currentDir + "\\DVD-training.csv");
-
-    }
 
     public static void main(String args[])
     {
-        Server server = new Server(5000);
+        //Server server = new Server(5000);
+
 
     }
 } 
