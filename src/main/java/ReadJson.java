@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class ReadJson {
-    public static void returnJson(String filePath, int batchUnit, int batchID, int batchSize) throws IOException {
+    public static void returnJson(String filePath, String benchmarkType, String testType, int batchUnit, int batchID, int batchSize) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        File file = new File(filePath);
+        File file = new File(filePath + "\\" + benchmarkType + "_" + testType + ".json");
 
         List<csvData> jsonList = mapper.readValue(file, new TypeReference<List<csvData>>() {});
         int totalSampleSize = jsonList.size();
@@ -19,7 +19,7 @@ public class ReadJson {
         System.out.println("All samples = " + totalSampleSize);
         System.out.println("Number of partitions = " + (totalSampleSize/batchUnit));
         System.out.println("Start at sample number " + sampleStart);
-        System.out.println("Start at sample number " + sampleEnd);
+        System.out.println("End at sample number " + sampleEnd);
 
         if(sampleEnd/batchUnit <= totalSampleSize/batchUnit) {
             for (int i = sampleStart; i < sampleEnd; i++) {
@@ -45,8 +45,8 @@ public class ReadJson {
     public static void main(String args[]) throws IOException {
 
         String currentDir = System.getProperty("user.dir");
-        String newFile = currentDir + "\\src\\DVD_testing.json";
+        String newFile = currentDir + "\\src";
 
-        returnJson(newFile, 100,127,1);
+        returnJson(newFile, "DVD", "testing", 100,127,1);
     }
 }

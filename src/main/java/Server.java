@@ -38,7 +38,7 @@ public class Server
                 {
                     line = in.readUTF();
                     String[] array = line.split(",");
-                    if(array.length <= 6) {
+                    if(array.length <= 7) {
                         if (array[0] != null && array[0].matches("\\d+")) {
                             System.out.println(array[0] + " is an integer");
                         } else {
@@ -49,15 +49,15 @@ public class Server
                         } else {
                             System.out.println("Not a proper benchmark type");
                         }
-                        if (array.length > 2 && array[2] != null && array[2].matches("(?i)cpu|networkin|networkout|memory")) {
-                            System.out.println(array[2] + " is a good workload metric");
+                        if (array.length > 2 && array[2] != null && array[2].matches("(?i)testing|training")) {
+                            System.out.println(array[2] + " is a good testing type");
+                        } else {
+                            System.out.println("Not a proper benchmark type");
+                        }
+                        if (array.length > 3 && array[3] != null && array[3].matches("(?i)cpu|networkin|networkout|memory")) {
+                            System.out.println(array[3] + " is a good workload metric");
                         } else {
                             System.out.println("Not a proper workload metric");
-                        }
-                        if (array.length > 3 && array[3] != null && array[3].matches("\\d+")) {
-                            System.out.println(array[3] + " is an integer");
-                        } else {
-                            System.out.println("Not integer");
                         }
                         if (array.length > 4 && array[4] != null && array[4].matches("\\d+")) {
                             System.out.println(array[4] + " is an integer");
@@ -69,10 +69,16 @@ public class Server
                         } else {
                             System.out.println("Not integer");
                         }
+                        if (array.length > 5 && array[6] != null && array[6].matches("\\d+")) {
+                            System.out.println(array[6] + " is an integer");
+                        } else {
+                            System.out.println("Not integer");
+                        }
                     }
                     else{
                         System.out.println("Too many parameters were inputted");
                     }
+                    RFW rfw = new RFW(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
                     System.out.println(Arrays.toString(array));
 
 
