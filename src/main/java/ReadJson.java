@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class ReadJson {
-    public static void returnJson(String filePath, String benchmarkType, String testType, int batchUnit, int batchID, int batchSize) throws IOException {
+    public static void returnJson(String filePath, String benchmarkType, String testType, String metric, int batchUnit, int batchID, int batchSize) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         File file = new File(filePath + "\\" + benchmarkType + "_" + testType + ".json");
+
+
 
         List<csvData> jsonList = mapper.readValue(file, new TypeReference<List<csvData>>() {});
         int totalSampleSize = jsonList.size();
@@ -23,10 +25,16 @@ public class ReadJson {
 
         if(sampleEnd/batchUnit <= totalSampleSize/batchUnit) {
             for (int i = sampleStart; i < sampleEnd; i++) {
-//                System.out.println("Cpu: " + jsonList.get(i).getCPU());
-//                System.out.println("NetworkIn: " + jsonList.get(i).getNetworkIn());
-//                System.out.println("NetworkOut: " + jsonList.get(i).getNetworkOut());
-//                System.out.println("Memory: " + jsonList.get(i).getMemory());
+                if(metric.matches("(?i)cpu"))
+                    System.out.println("Cpu: " + jsonList.get(i).getCPU());
+                else if(metric.matches("(?i)networkin"))
+                    System.out.println("NetworkIn: " + jsonList.get(i).getNetworkIn());
+                else if(metric.matches("(?i)networkout"))
+                    System.out.println("NetworkOut: " + jsonList.get(i).getNetworkOut());
+                else if(metric.matches("(?i)memory"))
+                    System.out.println("Memory: " + jsonList.get(i).getMemory());
+                else
+                    System.out.println("Not a proper metric");
             }
         }
         //Get the samples in the last partition that may not have the same number of batch units
@@ -34,7 +42,16 @@ public class ReadJson {
             sampleEnd = totalSampleSize;
             System.out.println("Last sample is " + sampleEnd);
             for(int i = sampleStart; i <= sampleEnd; i++){
-                //Iterate through samples
+                if(metric.matches("(?i)cpu"))
+                    System.out.println("Cpu: " + jsonList.get(i).getCPU());
+                else if(metric.matches("(?i)networkin"))
+                    System.out.println("NetworkIn: " + jsonList.get(i).getNetworkIn());
+                else if(metric.matches("(?i)networkout"))
+                    System.out.println("NetworkOut: " + jsonList.get(i).getNetworkOut());
+                else if(metric.matches("(?i)memory"))
+                    System.out.println("Memory: " + jsonList.get(i).getMemory());
+                else
+                    System.out.println("Not a proper metric");
             }
         }
         else{
@@ -47,6 +64,6 @@ public class ReadJson {
         String currentDir = System.getProperty("user.dir");
         String newFile = currentDir + "\\src";
 
-        returnJson(newFile, "DVD", "testing", 100,127,1);
+        returnJson(newFile, "DVD", "testing","cpu", 100,126,1);
     }
 }

@@ -5,9 +5,9 @@ import java.io.*;
 public class Client
 {
     // initialize socket and input output streams 
-    private Socket socket            = null;
-    private DataInputStream  input   = null;
-    private DataOutputStream out     = null;
+    private Socket socket = null;
+    private DataInputStream input = null;
+    private DataOutputStream out = null;
 
     // constructor to put ip address and port 
     public Client(String address, int port)
@@ -19,10 +19,10 @@ public class Client
             System.out.println("Connected");
 
             // takes input from terminal 
-            input  = new DataInputStream(System.in);
+            input = new DataInputStream(System.in);
 
             // sends output to the socket 
-            out    = new DataOutputStream(socket.getOutputStream());
+            out = new DataOutputStream(socket.getOutputStream());
         }
         catch(UnknownHostException u)
         {
