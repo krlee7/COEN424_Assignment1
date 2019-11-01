@@ -82,8 +82,8 @@ public class ConvertToJson {
     public static void main(String args[]) {
 
         String currentDir = System.getProperty("user.dir");
-        String csvData = currentDir + "\\src\\main\\java\\DVD-testing.csv";
-        String newFile = currentDir + "\\src\\DVD_testing.json";
+        String csvData = currentDir + "\\src\\main\\java\\NDBench-testing.csv";
+        String newFile = currentDir + "\\src\\NDBench_testing.json";
 
         csvToJSON(readCSVFile(csvData), newFile);
     }
