@@ -8,20 +8,21 @@ public class Client
     private Socket socket = null;
     private DataInputStream input = null;
     private DataOutputStream out = null;
+    private DataInputStream in = null;
 
     // constructor to put ip address and port 
     public Client(String address, int port)
     {
         // establish a connection 
-        try
-        {
+        try{
             socket = new Socket(address, port);
             System.out.println("Connected");
 
-            // takes input from terminal 
+            //Input message
             input = new DataInputStream(System.in);
-
-            // sends output to the socket 
+            //Message from server
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            //Writes to server
             out = new DataOutputStream(socket.getOutputStream());
         }
         catch(UnknownHostException u)
@@ -33,19 +34,19 @@ public class Client
             System.out.println(i);
         }
 
-        // string to read message from input 
         String line = "";
-
-        // keep reading until "Over" is input 
-        while (!line.equals("Over"))
-        {
-            try
-            {
+        while(!line.equals("End")) {
+            try {
                 line = input.readLine();
-                out.writeUTF(line);
-            }
-            catch(IOException i)
-            {
+                out.writeUTF(line);  //Write to server
+                while(!(line.endsWith("]") || line.endsWith("values"))) {
+                    line = in.readUTF();
+                    if(line.equals("End")){
+                        break;
+                    }
+                    System.out.println(line);
+                }
+            } catch (IOException i) {
                 System.out.println(i);
             }
         }

@@ -10,13 +10,13 @@ public class Server
     private Socket socket = null;
     private ServerSocket server = null;
     private DataInputStream in = null;
+    private DataOutputStream out = null;
 
     // constructor with port 
     public Server(int port)
     {
         // starts server and waits for a connection 
-        try
-        {
+        try{
             server = new ServerSocket(port);
             System.out.println("Server started");
 
@@ -25,50 +25,66 @@ public class Server
             socket = server.accept();
             System.out.println("Client accepted");
 
-            // takes input from the client socket 
-            in = new DataInputStream(
-                    new BufferedInputStream(socket.getInputStream()));
-
+            //Message from client
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            //Write to client
+            out = new DataOutputStream(socket.getOutputStream());
             String line = "";
 
-            // reads message from client until "Over" is sent 
-            while (!line.equals("Over"))
-            {
-                try
-                {
+            //Parameters to return to client
+            int rfwID = 0;
+            int lastBatchID = 0;
+            List<String> samples = new ArrayList<>();
+
+            while(!line.equals("End")) {
+                try {
                     line = in.readUTF();
-                    line = line.replaceAll("\\s+","");  //Remove whitespaces
-                    String[] array = line.split(",");
-                    if(array.length <= 7) {
-                        if((array[0] != null && array[0].matches("\\d+")) &&
+                    if(line.equals("End")){
+                        break;
+                    }
+                    line = line.replaceAll("\\s+", "");  //Remove whitespaces
+                    String[] array = line.split(",");               //Delimit commas
+                    if (array.length <= 7) {
+                        if ((array[0] != null && array[0].matches("\\d+")) &&
                                 (array.length > 1 && array[1] != null && array[1].matches("(?i)dvd|ndbench")) &&
                                 (array.length > 2 && array[2] != null && array[2].matches("(?i)testing|training")) &&
                                 (array.length > 3 && array[3] != null && array[3].matches("(?i)cpu|networkin|networkout|memory")) &&
                                 (array.length > 4 && array[4] != null && array[4].matches("\\d+")) &&
                                 (array.length > 5 && array[5] != null && array[5].matches("\\d+")) &&
                                 (array.length > 6 && array[6] != null && array[6].matches("\\d+"))
-                        ){
+                        ) {
                             RFW rfw = new RFW(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
                             String currentDir = System.getProperty("user.dir");
                             String newFile = currentDir + "\\src";
 
-                            ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
+                            rfwID = Integer.parseInt(array[0]);
+                            int batchID = Integer.parseInt(array[5]);
+                            int batchSize = Integer.parseInt(array[6]);
+                            lastBatchID = batchID + batchSize;
+                            samples = ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
                                     Integer.parseInt(rfw.getBatchUnit()), Integer.parseInt(rfw.getBatchID()), Integer.parseInt(rfw.getBatchSize()));
+                            out.writeUTF("RFW ID: " + rfwID);
+                            out.writeUTF("Last batch ID: " + lastBatchID);
+                            if (!samples.isEmpty()) {
+                                if (!samples.get(0).equals("Outside of batch samples")) {
+                                    out.writeUTF("Samples: " + samples);
+                                }
+                                else {
+                                    out.writeUTF(samples.get(0));
+                                }
+                            }
+                            System.out.println(Arrays.toString(array));
+                        } else {
+                            out.writeUTF("Incorrect paramater values");
+                            System.out.println("Incorrect paramater values");
                         }
 
-                    }
-                    else{
+                    } else {
                         System.out.println("Too many parameters were inputted");
                     }
 
 
-
-                    System.out.println(Arrays.toString(array));
-
-
-                }
-                catch(IOException i)
-                {
+                } catch (IOException i) {
                     System.out.println(i);
                 }
             }
