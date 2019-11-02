@@ -1,5 +1,6 @@
 import Profiles.Dataprofile;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 
 import Profiles.csvData;
@@ -94,13 +95,95 @@ public class ConvertToProtobuf {
     }
 
 
+    public static List<String> returnValues(String filePath, String benchmarkType, String testType, String metric, int batchUnit, int batchID, int batchSize){
+        File originalFile = new File(filePath + "\\main\\java\\" + benchmarkType + "-" + testType + ".csv");
+        String originalFilePath = filePath + "\\main\\java\\" + benchmarkType + "-" + testType + ".csv";
+        String destinationFilePath = filePath + "BinaryFile.txt";
+
+        List<String> sampleValues = new ArrayList<>();
+
+        int sampleStart = batchID*batchUnit - 1;
+        int sampleEnd = (batchID + batchSize)*batchUnit - 1;
+
+
+        /**Will check first if samples in the last partition that may not have the same number of batch units
+         * NOT give error reading.*/
+        /*if (sampleEnd/batchUnit <= originalFile.length()/batchUnit){
+            csvToProto(readCSVFile(originalFilePath,sampleStart,sampleEnd),destinationFilePath);
+        }
+        else if (sampleEnd/batchUnit <= (originalFile.length()/batchUnit)+1){
+            csvToProto(readCSVFile(originalFilePath,sampleStart,sampleEnd),destinationFilePath);
+        }
+        else{
+            sampleValues.add("Outside of batch samples");
+        }*/
+
+        /**Serialize the file*/
+        csvToProto(readCSVFile(originalFilePath,sampleStart,sampleEnd),destinationFilePath);
+
+        /**Deserialize the file*/
+        try {
+            File destinationFile = new File(destinationFilePath);
+            byte[] destinationByteFile = Files.readAllBytes(destinationFile.toPath());
+            FileInputStream inputStream = new FileInputStream(destinationFilePath);
+
+            switch (metric){
+                case "cpu":
+                    sampleValues.add(Double.toString(Dataprofile.Data.parseFrom(destinationByteFile).getCpu()));
+                    break;
+                case "networkIn":
+                    sampleValues.add(Double.toString(Dataprofile.Data.parseFrom(destinationByteFile).getNetworkIn()));
+                    break;
+                case "networkOut":
+                    sampleValues.add(Double.toString(Dataprofile.Data.parseFrom(destinationByteFile).getNetworkOut()));
+                    break;
+                case "memory":
+                    sampleValues.add(Double.toString(Dataprofile.Data.parseFrom(destinationByteFile).getMemory()));
+                    break;
+                default:
+                    break;
+
+            }
+
+            /*for (Dataprofile.Data profile: destinationByteFile){
+                switch (metric){
+                    case "cpu":
+                        sampleValues.add(Double.toString(profile.getCpu()));
+                        break;
+                    case"networkIn":
+
+                }
+            }*/
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /**From the testing, it seems like we'd need to put the
+         * deserialization part in a for loop.*/
+        for (int i = 0; i < sampleValues.size(); i++){
+            System.out.println(sampleValues.get(i));
+            System.out.println(sampleValues.size());
+        }
+        return sampleValues;
+    }
+
     public static void main(String args[]){
 
         String currentDir = System.getProperty("user.dir");
-        String csvData = currentDir + "\\src\\main\\java\\NDBench-testing.csv";
-        String newFile = currentDir + "\\src\\BinaryFile.txt";
+        String csvData = currentDir + "\\src";
+        String metric = "cpu";
+        String benchMarkType = "DVD";
+        String testType = "training";
+        int batchUnit = 1;
+        int batchID = 1;
+        int batchSize = 1;
 
-        csvToProto(readCSVFile(csvData,1,3),newFile);
+        returnValues(csvData,benchMarkType,testType,metric,batchUnit,batchID,batchSize);
+
+        //String newFile = currentDir + "\\src\\BinaryFile.txt";
+        //csvToProto(readCSVFile(csvData,1,3),newFile);
 
     }
 
