@@ -9,7 +9,8 @@ public class Server
     //initialize socket and input stream 
     private Socket socket = null;
     private ServerSocket server = null;
-    private DataInputStream in = null;
+    private BufferedReader in = null;
+    private PrintWriter out = null;
 
     // constructor with port 
     public Server(int port)
@@ -25,20 +26,23 @@ public class Server
             socket = server.accept();
             System.out.println("Client accepted");
 
-            // takes input from the client socket 
-            in = new DataInputStream(
-                    new BufferedInputStream(socket.getInputStream()));
-
+            //Message from client
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //Write to client
+            out = new PrintWriter(socket.getOutputStream(), true);
             String line = "";
 
-            // reads message from client until "Over" is sent 
-            while (!line.equals("Over"))
-            {
+            //Parameters to return to client
+            int rfwID = 0;
+            int lastBatchID = 0;
+            List<String> samples = new ArrayList<>();
+
+
                 try
                 {
-                    line = in.readUTF();
+                    line = in.readLine();
                     line = line.replaceAll("\\s+","");  //Remove whitespaces
-                    String[] array = line.split(",");
+                    String[] array = line.split(",");               //Delimit commas
                     if(array.length <= 7) {
                         if((array[0] != null && array[0].matches("\\d+")) &&
                                 (array.length > 1 && array[1] != null && array[1].matches("(?i)dvd|ndbench")) &&
@@ -52,8 +56,27 @@ public class Server
                             String currentDir = System.getProperty("user.dir");
                             String newFile = currentDir + "\\src";
 
-                            ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
+                            rfwID = Integer.parseInt(array[0]);
+                            int batchID = Integer.parseInt(array[5]);
+                            int batchSize = Integer.parseInt(array[6]);
+                            lastBatchID = batchID + batchSize;
+                            samples = ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
                                     Integer.parseInt(rfw.getBatchUnit()), Integer.parseInt(rfw.getBatchID()), Integer.parseInt(rfw.getBatchSize()));
+
+
+                            out.println("RFW ID: " + rfwID);
+                            out.println("Last batch ID: " + lastBatchID);
+                            if(!samples.isEmpty()) {
+                                if (!samples.get(0).equals("Outside of batch samples") || !samples.get(0).equals("Negative value"))
+                                    out.println("Samples" + samples);
+                                else
+                                    out.println(samples);
+                            }
+                            System.out.println(Arrays.toString(array));
+                        }
+                        else{
+                            out.println("Incorrect paramater values");
+                            System.out.println("Incorrect paramater values");
                         }
 
                     }
@@ -63,15 +86,12 @@ public class Server
 
 
 
-                    System.out.println(Arrays.toString(array));
-
-
                 }
                 catch(IOException i)
                 {
                     System.out.println(i);
                 }
-            }
+
             System.out.println("Closing connection");
 
             // close connection 
