@@ -7,24 +7,23 @@ public class Client
     // initialize socket and input output streams 
     private Socket socket = null;
     private DataInputStream input = null;
-    private PrintWriter out = null;
-    private BufferedReader in = null;
+    private DataOutputStream out = null;
+    private DataInputStream in = null;
 
     // constructor to put ip address and port 
     public Client(String address, int port)
     {
         // establish a connection 
-        try
-        {
+        try{
             socket = new Socket(address, port);
             System.out.println("Connected");
 
             //Input message
             input = new DataInputStream(System.in);
             //Message from server
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             //Writes to server
-            out = new PrintWriter(socket.getOutputStream(), true);
+            out = new DataOutputStream(socket.getOutputStream());
         }
         catch(UnknownHostException u)
         {
@@ -36,18 +35,21 @@ public class Client
         }
 
         String line = "";
-        String line2 = "";
-
-        try {
-            line = input.readLine();
-            out.println(line);  //Write to server
-            line = in.readLine();
-            System.out.println(line);
-
-        } catch (IOException i) {
-            System.out.println(i);
+        while(!line.equals("End")) {
+            try {
+                line = input.readLine();
+                out.writeUTF(line);  //Write to server
+                while(!(line.endsWith("]") || line.endsWith("values"))) {
+                    line = in.readUTF();
+                    if(line.equals("End")){
+                        break;
+                    }
+                    System.out.println(line);
+                }
+            } catch (IOException i) {
+                System.out.println(i);
+            }
         }
-
 
         // close the connection 
         try
