@@ -39,7 +39,7 @@ public class Client
             try {
                 line = input.readLine();
                 out.writeUTF(line);  //Write to server
-                while(!(line.endsWith("]") || line.endsWith("values"))) {
+                while(!(line.endsWith("]") || line.endsWith("values") || line.endsWith("value"))) {
                     line = in.readUTF();
                     if(line.equals("End")){
                         break;

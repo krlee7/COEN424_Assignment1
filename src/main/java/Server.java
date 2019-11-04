@@ -35,6 +35,7 @@ public class Server
             int rfwID = 0;
             int lastBatchID = 0;
             List<String> samples = new ArrayList<>();
+            List<String> listID = new ArrayList<>();
 
             while(!line.equals("End")) {
                 try {
@@ -54,19 +55,36 @@ public class Server
                                 (array.length > 6 && array[6] != null && array[6].matches("\\d+"))
                         ) {
                             RFW rfw = new RFW(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
+
+                            if(!listID.isEmpty()){
+                                System.out.println(listID);
+                                for(int i = 0; i < listID.size(); i++){
+                                    if(rfw.getId().equals(listID.get(i))){
+                                        out.writeUTF("Not a unique id value");
+                                        break;
+                                    }
+                                    else{
+                                        listID.add(rfw.getId());
+                                    }
+                                }
+                                continue;
+                            }
+                            else{
+                                listID.add(rfw.getId());
+                            }
                             String currentDir = System.getProperty("user.dir");
                             String newFile = currentDir + "\\src";
 
-                            rfwID = Integer.parseInt(array[0]);
-                            int batchID = Integer.parseInt(array[5]);
-                            int batchSize = Integer.parseInt(array[6]);
+                            rfwID = Integer.parseInt(rfw.getId());
+                            int batchID = Integer.parseInt(rfw.getBatchID());
+                            int batchSize = Integer.parseInt(rfw.getBatchSize());
                             lastBatchID = batchID + batchSize;
                             samples = ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
                                     Integer.parseInt(rfw.getBatchUnit()), Integer.parseInt(rfw.getBatchID()), Integer.parseInt(rfw.getBatchSize()));
                             out.writeUTF("RFW ID: " + rfwID);
                             out.writeUTF("Last batch ID: " + lastBatchID);
                             if (!samples.isEmpty()) {
-                                if (!samples.get(0).equals("Outside of batch samples")) {
+                                if (!samples.get(0).equals("Outside of batch sample values")) {
                                     out.writeUTF("Samples: " + samples);
                                 }
                                 else {
