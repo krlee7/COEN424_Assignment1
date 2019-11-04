@@ -36,6 +36,7 @@ public class Server
             int lastBatchID = 0;
             List<String> samples = new ArrayList<>();
             List<String> listID = new ArrayList<>();
+            boolean sameID = false;
 
             while(!line.equals("End")) {
                 try {
@@ -57,21 +58,24 @@ public class Server
                             RFW rfw = new RFW(array[0], array[1], array[2], array[3], array[4], array[5], array[6]);
 
                             if(!listID.isEmpty()){
-                                System.out.println(listID);
                                 for(int i = 0; i < listID.size(); i++){
                                     if(rfw.getId().equals(listID.get(i))){
+                                        sameID = true;
                                         out.writeUTF("Not a unique id value");
                                         break;
                                     }
-                                    else{
-                                        listID.add(rfw.getId());
-                                    }
                                 }
-                                continue;
+                                if(sameID == false)
+                                    listID.add(rfw.getId());
+                                else {
+                                    sameID = false;
+                                    continue;
+                                }
                             }
                             else{
                                 listID.add(rfw.getId());
                             }
+
                             String currentDir = System.getProperty("user.dir");
                             String newFile = currentDir + "\\src";
 
@@ -81,6 +85,7 @@ public class Server
                             lastBatchID = batchID + batchSize;
                             samples = ReadJson.returnJson(newFile, rfw.getBenchmarkType(), rfw.getTestType(), rfw.getMetric(),
                                     Integer.parseInt(rfw.getBatchUnit()), Integer.parseInt(rfw.getBatchID()), Integer.parseInt(rfw.getBatchSize()));
+                            out.writeUTF("RFW from client");
                             out.writeUTF("RFW ID: " + rfwID);
                             out.writeUTF("Last batch ID: " + lastBatchID);
                             if (!samples.isEmpty()) {
