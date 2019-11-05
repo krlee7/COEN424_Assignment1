@@ -10,6 +10,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "com.opencsv:opencsv:4.0"
@@ -19,4 +20,6 @@ dependencies {
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
     )
     compile "org.apache.commons:commons-csv:1.5"
+
+    compile 'com.google.protobuf:protobuf-java:3.10.0'
 }

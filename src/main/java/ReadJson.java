@@ -62,7 +62,7 @@ public class ReadJson {
             }
         }
         else{
-            sampleValues.add("Outside of batch samples");
+            sampleValues.add("Outside of batch sample values");
             //System.out.println("Outside of batch samples");
         }
         return sampleValues;

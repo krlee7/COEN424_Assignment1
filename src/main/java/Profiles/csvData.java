@@ -32,4 +32,15 @@ public class csvData {
             return memory;
         }
 
+        public static class Builder{
+            private double cpu;
+            private double networkIn;
+            private double networkOut;
+            private double memory;
+
+            public Builder (double cpu, double networkIn, double networkOut, double memory){
+
+            }
+        }
+
 }

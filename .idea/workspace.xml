@@ -6,32 +6,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.10/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Profiles/DVD_Testing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Profiles/DVD_Training.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Profiles/NDB_Testing.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Profiles/NDB_Training.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ConvertToProtobuf.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ConvertToProtobuf.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ReadJson$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ReadJson$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/ReadJson.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/ReadJson.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apache-commons.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/asm-all-5.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commons-csv-1.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jackson-all-1.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/apache-commons.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/asm-all-5.0.4.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/commons-csv-1.7.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/jackson-all-1.9.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/simpleFlatMapper-1.10.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Profiles/csvData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Profiles/csvData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/newDoc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/newDoc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/newDoc.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/simpleFlatMapper-1.10.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ConvertToProtobuf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ConvertToProtobuf.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,11 +55,21 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571429067339" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Lib" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
+    <property name="settings.editor.selected.configurable" value="io.protostuff.jetbrains.plugin.settings.ProtobufSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Coen424_Assignment1\COEN424_Assignment1\src" />
+      <recent name="D:\Projects\Coen424_Assignment1\COEN424_Assignment1\src\main" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\Coen424_Assignment1\COEN424_Assignment1\src\main\java" />
+      <recent name="D:\Projects\Coen424_Assignment1\COEN424_Assignment1\src\main\java\Profiles" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -88,9 +83,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.ConvertToProtobuf">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
+      <module name="COEN424_Assignment1.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConvertToJson" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ConvertToJson" />
+      <module name="COEN424_Assignment1.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConvertToProtobuf" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ConvertToProtobuf" />
       <module name="COEN424_Assignment1.main" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -105,6 +114,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ConvertToJson" />
+        <item itemvalue="Application.ConvertToProtobuf" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
       </list>

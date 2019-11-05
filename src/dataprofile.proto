@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package Profiles;
+
+message Data {
+	required double cpu = 1;
+	required double networkIn = 2;
+	required double networkOut = 3;
+	required double memory = 4;
+}
+
