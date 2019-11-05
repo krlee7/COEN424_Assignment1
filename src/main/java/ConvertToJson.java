@@ -82,9 +82,12 @@ public class ConvertToJson {
     public static void main(String args[]) {
 
         String currentDir = System.getProperty("user.dir");
-        String csvData = currentDir + "\\src\\main\\java\\NDBench-testing.csv";
-        String newFile = currentDir + "\\src\\NDBench_testing.json";
+        String csvData = currentDir + "\\src\\main\\java\\";
+        String newFile = currentDir + "\\src\\";
 
-        csvToJSON(readCSVFile(csvData), newFile);
+        csvToJSON(readCSVFile(csvData + "DVD-testing.csv"), newFile + "DVD_testing.json");
+        csvToJSON(readCSVFile(csvData + "DVD-training.csv"), newFile + "DVD_training.json");
+        csvToJSON(readCSVFile(csvData + "NDBench-testing.csv"), newFile + "NDBench_testing.json");
+        csvToJSON(readCSVFile(csvData + "NDBench-training.csv"), newFile + "NDBench_training.json");
     }
 }
