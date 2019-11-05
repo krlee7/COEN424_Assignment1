@@ -179,20 +179,21 @@ public class ConvertToProtobuf {
 
     public static void main(String args[]) throws IOException {
 
-        String currentDir = System.getProperty("user.dir");
+        /*String currentDir = System.getProperty("user.dir");
         String csvData = currentDir + "\\src";
         String metric = "cpu";
         String benchMarkType = "DVD";
         String testType = "training";
         int batchUnit = 1;
-        int batchID = 1;
-        int batchSize = 3;
+        int batchID = 2;
+        int batchSize = 1;
 
-        returnValues(csvData,benchMarkType,testType,metric,batchUnit,batchID,batchSize);
+        returnValues(csvData,benchMarkType,testType,metric,batchUnit,batchID,batchSize);*/
 
+        String currentDir = System.getProperty("user.dir");
+        String csvData = currentDir + "\\src\\main\\java\\DVD-testing.csv";
         String newFile = currentDir + "\\src\\BinaryFile.txt";
-        //csvToProto(readCSVFile(csvData,1,3),newFile);
-
+        csvToProto(readCSVFile(csvData,1,10),newFile);
     }
 
 
